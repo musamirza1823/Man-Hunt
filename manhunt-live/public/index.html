@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e0a0b">
+  <meta name="description" content="Runners vs catchers in real life. Roll the dice for your role, run while you can, and hope the radar doesn’t find you.">
+  <title>Manhunt Live</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="/style.css?v=5">
+  <script src="/site.js?v=5" defer></script>
+  <script src="/qr.js?v=5" defer></script>
+  <script src="/app.js?v=5" defer></script>
+</head>
+<body>
+
+  <!-- ============ HOME: landing page with profile, create and join ============ -->
+  <div id="home" class="home">
+    <div class="scroll-line" aria-hidden="true"><span id="scroll-progress"></span></div>
+
+    <header class="site-nav" id="site-nav">
+      <a class="brand" href="#top" aria-label="Manhunt Live, back to top">
+        <img src="/img/mark.svg" alt="" width="34" height="34">
+        <span>Manhunt</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#rules">The rules</a>
+        <a href="#safety">Play safe</a>
+      </nav>
+      <a class="brush-btn brush-sm" href="#enter">Play now</a>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-art" data-parallax="0.32" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <span class="brush-tag reveal">Runners vs Catchers</span>
+        <h1 class="reveal">The Hunt Begins<br>When the Light Dies</h1>
+        <p class="reveal">Real-life hide and seek played on your phones. Roll the dice for your role, run while you can, and hope the radar doesn’t find you.</p>
+        <div class="hero-actions reveal">
+          <a class="brush-btn" href="#enter">Enter the hunt</a>
+          <a class="brush-btn brush-dark" href="#rules">Read the rules</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro wrap" id="how">
+      <p class="intro-lede reveal">One phone each. One group code. Ten seconds to disappear.</p>
+      <div class="trio">
+        <article class="ragged-card trio-card reveal">
+          <span class="blot-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM18 18h3v3h-3zM18 14h3v2M14 18h2v3"/></svg></span>
+          <h3>QR Invites</h3>
+          <p>The host’s screen shows a QR code. Friends scan it and land straight in the group, or type the six-letter code.</p>
+        </article>
+        <article class="ragged-card trio-card reveal">
+          <span class="blot-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.6 7-12a7 7 0 0 0-14 0c0 5.4 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <h3>Live Map</h3>
+          <p>Catchers see runners on a real street map, but only when the radar reveals them. The rest of the time, they hunt blind.</p>
+        </article>
+        <article class="ragged-card trio-card reveal">
+          <span class="blot-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg></span>
+          <h3>Photo Proof</h3>
+          <p>Catch someone, snap their photo. It drops into the group chat and that runner is out of the round.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="enter wrap" id="enter">
+      <div class="section-head">
+        <span class="brush-tag reveal">Join the hunt</span>
+        <h2 class="reveal">Choose Your Face,<br>Gather Your Pack</h2>
+        <p class="reveal">Pick a username and a profile picture, then make a group or join one.</p>
+      </div>
+      <p id="invited" class="invited" hidden></p>
+      <div class="enter-grid">
+        <section class="ragged-card profile reveal" aria-labelledby="profile-title">
+          <h3 id="profile-title" class="card-title"><span>I</span> Your profile</h3>
+          <div class="profile-row">
+            <div id="avatar-preview" class="avatar avatar-xl" aria-hidden="true"></div>
+            <div class="profile-photo">
+              <label class="btn btn-line" for="photo-input">Take or choose a photo</label>
+              <input id="photo-input" class="sr-only" type="file" accept="image/*">
+              <button id="photo-clear" class="link-btn" type="button" hidden>Use an emoji instead</button>
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend class="label">Or pick an avatar</legend>
+            <div id="emoji-grid" class="emoji-grid" role="radiogroup" aria-label="Avatar"></div>
+          </fieldset>
+          <label class="field">
+            <span class="label">Username</span>
+            <input id="name" type="text" maxlength="20" autocomplete="nickname" placeholder="e.g. Hasna" required>
+          </label>
+        </section>
+
+        <section class="ragged-card actions reveal" aria-labelledby="start-title">
+          <h3 id="start-title" class="card-title"><span>II</span> Make or join a group</h3>
+          <button id="create-btn" class="brush-btn brush-wide" type="button">Create a group</button>
+          <div class="or"><span>or join with a code</span></div>
+          <form id="join-form" class="join-row" novalidate>
+            <label class="sr-only" for="join-code">Group code</label>
+            <input id="join-code" class="code-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="7" placeholder="CODE">
+            <button id="join-btn" class="brush-btn brush-dark" type="submit">Join</button>
+          </form>
+          <p class="hint">Got a QR code from a friend? Scan it with your phone’s camera and it opens here with the code filled in.</p>
+          <p id="home-error" class="error" role="alert" hidden></p>
+        </section>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Roll</span><i></i><span>Run</span><i></i><span>Hide</span><i></i><span>Reveal</span><i></i><span>Catch</span><i></i>
+        <span>Roll</span><i></i><span>Run</span><i></i><span>Hide</span><i></i><span>Reveal</span><i></i><span>Catch</span><i></i>
+      </div>
+    </div>
+
+    <section class="rules wrap" id="rules">
+      <article class="feature reveal-group">
+        <div class="feature-copy">
+          <span class="brush-tag brush-tag-dark">The Dice</span>
+          <h2>Fate Picks<br>the Catchers</h2>
+          <p>The host rolls and a die spins on every phone. The lowest rolls become catchers. Everyone else runs.</p>
+          <p>The moment your role appears, your phone asks for your location. No location, no hunt.</p>
+        </div>
+        <figure class="feature-art torn"><img src="/img/dice.jpg" alt="A white die glowing in red smoke" loading="lazy" width="1200" height="900"></figure>
+      </article>
+
+      <article class="feature flip reveal-group">
+        <div class="feature-copy">
+          <span class="brush-tag brush-tag-dark">The Countdown</span>
+          <h2>Ten Seconds<br>to Vanish</h2>
+          <p>A giant 10, 9, 8 fills every screen. Runners scatter into the dark. Catchers stay at the start point until it hits GO.</p>
+        </div>
+        <figure class="feature-art torn"><img src="/img/chase.jpg" alt="A runner sprinting through a cold, misty forest" loading="lazy" width="1200" height="900"></figure>
+      </article>
+
+      <article class="feature reveal-group">
+        <div class="feature-copy">
+          <span class="brush-tag brush-tag-dark">The Reveal</span>
+          <h2>Hidden for Fifteen,<br>Exposed for Five</h2>
+          <p>Runners vanish from the map for 15 minutes. Then for 5 minutes, every catcher sees every runner live. Then darkness again.</p>
+          <p>When your screen warns you that you’re visible, move.</p>
+        </div>
+        <figure class="feature-art torn"><img src="/img/radar.jpg" alt="A radar sweep over a street map with red blips" loading="lazy" width="1200" height="900"></figure>
+      </article>
+
+      <article class="feature flip reveal-group">
+        <div class="feature-copy">
+          <span class="brush-tag brush-tag-dark">The Catch</span>
+          <h2>Proof in a<br>Single Flash</h2>
+          <p>Tag a runner and take their photo. It lands in the group chat and they’re eliminated. Catch them all and the catchers win.</p>
+        </div>
+        <figure class="feature-art torn"><img src="/img/flash.jpg" alt="A runner caught in a camera flash" loading="lazy" width="1200" height="900"></figure>
+      </article>
+    </section>
+
+    <section class="stats wrap" aria-label="The numbers">
+      <div class="stat reveal"><b>10 sec</b><span>to get away</span></div>
+      <div class="stat reveal"><b>15 min</b><span>in the dark</span></div>
+      <div class="stat reveal"><b>5 min</b><span>exposed on the map</span></div>
+      <div class="stat reveal"><b>20</b><span>players per group</span></div>
+    </section>
+
+    <section class="quote wrap">
+      <blockquote class="reveal">“Every reveal brings them closer. Keep moving.”</blockquote>
+      <span class="brush-tag reveal">The Runner’s Rule</span>
+    </section>
+
+    <section class="cta" id="safety">
+      <div class="cta-art" aria-hidden="true"></div>
+      <div class="cta-copy wrap">
+        <h2 class="reveal">Hunt Hard,<br>Play Safe</h2>
+        <ul class="safety-list reveal">
+          <li>Agree on the play area before the countdown.</li>
+          <li>Stay away from roads and anywhere you don’t know.</li>
+          <li>Ask before you photograph someone.</li>
+          <li>Locations and photos stay inside your group and vanish when it empties.</li>
+        </ul>
+        <a class="brush-btn reveal" href="#enter">Start a hunt</a>
+      </div>
+    </section>
+
+    <footer class="site-foot wrap">
+      <img src="/img/mark.svg" alt="" width="56" height="56">
+      <p>The light is fading. Somebody is already counting.</p>
+      <dl class="foot-facts">
+        <div><dt>Genre</dt><dd>Outdoor chase</dd></div>
+        <div><dt>Players</dt><dd>2 to 20</dd></div>
+        <div><dt>Needs</dt><dd>A phone with GPS</dd></div>
+      </dl>
+    </footer>
+  </div>
+
+  <!-- ============ GAME ============ -->
+  <div id="game" class="game" hidden>
+    <section class="map-wrap" aria-label="Map">
+      <div id="map" class="map"></div>
+      <div id="map-fallback" class="map-fallback" hidden>
+        <p><b>The map couldn’t load.</b><br>You can still play: the Group tab shows how far away and in which direction players are.</p>
+      </div>
+
+      <div class="topbar">
+        <button id="code-chip" class="chip code-chip" type="button" aria-label="Show the invite QR code">
+          <svg class="qr-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM18 18h3v3h-3zM18 14h3v2M14 18h2v3"/></svg>
+          <span id="code-text" class="code-text">------</span>
+        </button>
+        <div id="phase-box" class="phase-box">
+          <span id="conn-dot" class="conn-dot" title="Connecting"></span>
+          <span id="phase-text" class="phase-text">Connecting…</span>
+          <span id="timer-text" class="timer-text"></span>
+        </div>
+        <span id="role-badge" class="role-badge" hidden></span>
+      </div>
+
+      <div id="banners" class="banners" aria-live="polite"></div>
+      <div id="big-count" class="big-count" aria-live="assertive" hidden></div>
+
+      <div class="map-tools">
+        <button id="recenter-btn" class="round-btn" type="button" aria-label="Show everyone on the map" title="Show everyone">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="7.5"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <section class="sheet" aria-label="Game panel">
+      <nav class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-group" aria-controls="panel-group" aria-selected="true" data-tab="group">Group <span id="player-count" class="count"></span></button>
+        <button class="tab" role="tab" id="tab-chat" aria-controls="panel-chat" aria-selected="false" data-tab="chat">Chat <span id="unread" class="unread" hidden></span></button>
+        <button class="tab" role="tab" id="tab-game" aria-controls="panel-game" aria-selected="false" data-tab="game">Settings</button>
+      </nav>
+
+      <!-- Group -->
+      <div id="panel-group" class="panel" role="tabpanel" aria-labelledby="tab-group">
+        <div id="my-status" class="my-status"></div>
+        <ul id="player-list" class="player-list"></ul>
+        <div id="host-lobby" class="host-lobby" hidden>
+          <button id="roll-btn" class="btn btn-beam btn-big" type="button">🎲 Roll the dice</button>
+          <button id="start-btn" class="btn btn-beam btn-big" type="button" hidden>Start the round</button>
+          <p id="host-hint" class="hint"></p>
+        </div>
+        <button id="invite-btn" class="btn btn-line" type="button">Show invite QR code</button>
+      </div>
+
+      <!-- Chat -->
+      <div id="panel-chat" class="panel panel-chat" role="tabpanel" aria-labelledby="tab-chat" hidden>
+        <ol id="chat-list" class="chat-list" aria-live="polite"></ol>
+        <form id="chat-form" class="chat-form" novalidate>
+          <div class="channel" role="radiogroup" aria-label="Send to">
+            <button type="button" class="channel-btn" data-channel="all" aria-pressed="true">Everyone</button>
+            <button type="button" class="channel-btn" data-channel="team" aria-pressed="false">My team</button>
+          </div>
+          <div class="chat-row">
+            <label for="chat-input" class="sr-only">Message</label>
+            <input id="chat-input" type="text" maxlength="300" autocomplete="off" placeholder="Message everyone">
+            <button class="btn btn-beam" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Settings -->
+      <div id="panel-game" class="panel" role="tabpanel" aria-labelledby="tab-game" hidden>
+        <form id="settings-form" class="card settings" novalidate>
+          <span class="label">Round settings <span id="settings-note" class="muted"></span></span>
+          <label class="setting"><span>Catchers</span><select id="s-catchers" data-key="catchers"></select></label>
+          <label class="setting"><span>Start countdown</span><select id="s-leadSec" data-key="leadSec"></select></label>
+          <label class="setting"><span>Runners hidden for</span><select id="s-hideMin" data-key="hideMin"></select></label>
+          <label class="setting"><span>Then shown on the map for</span><select id="s-showMin" data-key="showMin"></select></label>
+          <label class="setting"><span>Game length</span><select id="s-gameMin" data-key="gameMin"></select></label>
+        </form>
+
+        <div id="host-controls" class="card host-controls" hidden>
+          <span class="label">Host controls</span>
+          <label class="toggle"><input id="lock-toggle" type="checkbox"> <span>Lock the group so no one new can join</span></label>
+          <button id="end-btn" class="btn btn-danger" type="button" hidden>End this round</button>
+          <button id="lobby-btn" class="btn btn-line" type="button" hidden>Back to the group lobby</button>
+        </div>
+
+        <div class="card me-controls">
+          <span class="label">You</span>
+          <label class="toggle"><input id="share-loc-toggle" type="checkbox" checked> <span>Share my location</span></label>
+          <p id="geo-status" class="hint"></p>
+          <button id="leave-btn" class="btn btn-line btn-danger-line" type="button">Leave group</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ OVERLAYS ============ -->
+  <div id="overlay" class="overlay" hidden>
+    <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+      <button id="overlay-close" class="overlay-close" type="button" aria-label="Close">×</button>
+      <div id="overlay-body"></div>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="assertive"></div>
+</body>
+</html>
